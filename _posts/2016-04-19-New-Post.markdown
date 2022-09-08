@@ -109,7 +109,7 @@ Head over to the [documentation page](http://projectpages.github.io/ppguide/) fo
 
 ## Data Projector
 
-<embed src="/project-pages/2016/05/02/New-Projector/" height="500px" width="100%">
+<embed src="/bonbon-is-not-available.github.io/2016/05/02/New-Projector/" height="500px" width="100%">
 
 ## STL
 
