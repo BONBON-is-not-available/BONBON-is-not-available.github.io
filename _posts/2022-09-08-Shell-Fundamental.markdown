@@ -14,7 +14,7 @@ category:  project1
 
 # Resources
 
-[Linux 命令行与 Shell 脚本教程](https://archlinuxstudio.github.io/ShellTutorial/#/shellBasic/shell_basic)
+<p align="center">[Linux 命令行与 Shell 脚本教程](https://archlinuxstudio.github.io/ShellTutorial/#/shellBasic/shell_basic)</p>
 <embed src="https://archlinuxstudio.github.io/ShellTutorial/#/shellBasic/shell_basic" height="500px" width="100%">
 
 [github: Linux基础命令][1]
