@@ -51,8 +51,11 @@ category:  project1
 
 [I'm a reference-style link 1][2]
 
+[github emoji-cheat-sheet][3]
+
 [1]:https://www.mozilla.org
 [2]:http://www.reddit.com
+[2]:https://github.com/ikatyang/emoji-cheat-sheet/blob/master/README.md
 
 ## Images
 
@@ -90,6 +93,12 @@ column  | short | B | C
 ## Rule
 
 ---
+
+
+## List
+- [x] Finish my changes
+- [ ] Push my commits to GitHub
+- [ ] Open a pull request
 
 ## HTML
 
