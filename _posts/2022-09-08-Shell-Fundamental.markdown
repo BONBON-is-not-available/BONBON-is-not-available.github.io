@@ -24,8 +24,10 @@ category:  project1
 
 ## Styling
 
-**Bold**
+所以能打中文嘛**Bold**试试把
+
 **try bold**
+
 *try Italics*
 *Italics*
 
