@@ -99,6 +99,7 @@ column  | short | B | C
 
 ---
 
-## HTML
-
-Can write the whole post or sections in HTML for very specific needs. [For the advanced user or the code savvy.]
+## List
+- [x] Finish my changes
+- [ ] Push my commits to GitHub
+- [ ] Open a pull request
