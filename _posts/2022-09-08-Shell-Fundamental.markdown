@@ -18,8 +18,10 @@ category:  project1
 <embed src="https://archlinuxstudio.github.io/ShellTutorial/#/shellBasic/shell_basic" height="500px" width="100%">
 
 [github: Linux基础命令][1]
+<embed src="https://github.com/BoobooWei/booboo_linux_base/blob/master/01-Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4.md" height="500px" width="100%">
 
 [WashingtonU: Using vi, the Unix Visual Editor][2]
+<embed src="https://staff.washington.edu/rells/R110/#basics4" height="500px" width="100%">
 
 [1]:https://github.com/BoobooWei/booboo_linux_base/blob/master/01-Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4.md
 [2]:https://staff.washington.edu/rells/R110/#basics4
