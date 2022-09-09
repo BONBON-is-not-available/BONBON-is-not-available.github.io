@@ -12,7 +12,16 @@ category:  project1
 * TOC
 {:toc}
 
-# Basic Functionality
+# Resources
+
+[Linux 命令行与 Shell 脚本教程](https://archlinuxstudio.github.io/ShellTutorial/#/shellBasic/shell_basic)
+
+[github: Linux基础命令][1]
+
+[WashingtonU: Using vi, the Unix Visual Editor][2]
+
+[1]:[https://www.mozilla.org](https://github.com/BoobooWei/booboo_linux_base/blob/master/01-Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4.md)
+[2]:[http://www.reddit.com](https://staff.washington.edu/rells/R110/#basics4)
 
 ## Headers
 
@@ -24,11 +33,8 @@ category:  project1
 
 ## Styling
 
-所以能打中文嘛**Bold**试试把
+**Bold**
 
-**try bold**
-
-*try Italics*
 *Italics*
 
 ***Bold and Italics***
