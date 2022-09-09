@@ -111,3 +111,11 @@ column  | short | B | C
 ## Data Projector
 
 <embed src="/bonbon-is-not-available.github.io/2016/05/02/New-Projector/" height="500px" width="100%">
+
+
+## Color and Alignment
+
+<p align="center">This text is centered.</p>
+
+<p style="color:red">This is a red text with <span style="color:blue">blue</span> and <span style="color:green">green</span> inline text.</p>
+
