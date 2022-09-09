@@ -21,8 +21,8 @@ category:  project1
 
 [WashingtonU: Using vi, the Unix Visual Editor][2]
 
-[1]:[https://www.mozilla.org](https://github.com/BoobooWei/booboo_linux_base/blob/master/01-Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4.md)
-[2]:[http://www.reddit.com](https://staff.washington.edu/rells/R110/#basics4)
+[1]:https://github.com/BoobooWei/booboo_linux_base/blob/master/01-Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4.md
+[2]:https://staff.washington.edu/rells/R110/#basics4
 
 ## Headers
 
