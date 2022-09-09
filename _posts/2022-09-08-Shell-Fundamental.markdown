@@ -26,7 +26,7 @@ category:  project1
 
 **Bold**
 **try bold**
-* try Italics *
+*try Italics*
 *Italics*
 
 ***Bold and Italics***
