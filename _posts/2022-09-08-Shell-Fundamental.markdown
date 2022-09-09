@@ -15,6 +15,7 @@ category:  project1
 # Resources
 
 [Linux 命令行与 Shell 脚本教程](https://archlinuxstudio.github.io/ShellTutorial/#/shellBasic/shell_basic)
+<embed src="/bonbon-is-not-available.github.io/New-Projector/" height="500px" width="100%">
 
 [github: Linux基础命令][1]
 
@@ -103,3 +104,8 @@ column  | short | B | C
 - [x] Finish my changes
 - [ ] Push my commits to GitHub
 - [ ] Open a pull request
+
+
+## Data Projector
+
+<embed src="/bonbon-is-not-available.github.io/2016/05/02/New-Projector/" height="500px" width="100%">
