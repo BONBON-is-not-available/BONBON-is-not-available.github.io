@@ -23,7 +23,7 @@ category:  project1
 [Runoob: linux教程][2]
 <embed src="https://www.runoob.com/linux/linux-file-content-manage.html" height="500px" width="100%">
 
-[Runoob: linux教程][5]
+[Github: linux Intro][5]
 <embed src="https://github.com/BoobooWei/booboo_linux_base" height="500px" width="100%">
 
 
