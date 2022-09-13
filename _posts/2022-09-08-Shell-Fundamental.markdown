@@ -24,8 +24,6 @@ category:  project1
 <embed src="https://www.runoob.com/linux/linux-file-content-manage.html" height="500px" width="100%">
 
 [Github: linux Intro][5]
-<embed src="https://github.com/BoobooWei/booboo_linux_base" height="500px" width="100%">
-
 
 [1]:https://staff.washington.edu/rells/R110/#basics4
 [2]:https://www.runoob.com/linux/linux-file-content-manage.html
