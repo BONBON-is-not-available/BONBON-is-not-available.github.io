@@ -14,9 +14,12 @@ category:  project1
 
 # Resources
 
+<center>
 [Linux 命令行与 Shell 脚本教程](https://archlinuxstudio.github.io/ShellTutorial/#/shellBasic/shell_basic)
+</center>
 <embed src="https://archlinuxstudio.github.io/ShellTutorial/#/shellBasic/shell_basic" height="500px" width="100%">
 
+ 
 [github: Linux基础命令][1]
 <embed src="https://github.com/BoobooWei/booboo_linux_base/blob/master/01-Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4.md" height="500px" width="100%">
 
@@ -115,6 +118,7 @@ column  | short | B | C
 
 ## Color and Alignment
 
+<p align="center">## Color and Alignment</p>
 <p align="center">This text is centered.</p>
 
 <p style="color:red">This is a red text with <span style="color:blue">blue</span> and <span style="color:green">green</span> inline text.</p>
