@@ -68,7 +68,7 @@ pwd: print working directory 显示当前所在位置的绝对路径
 匹配任意多个字符
 
 例如：a* 包括aa\*、ab\*、ac\* 等等 
-寻找包含a的文件名：ls -lrt *a*
+寻找包含a的文件名：ls -lrt \*a\*
 
 ### 通配符 ?
 
