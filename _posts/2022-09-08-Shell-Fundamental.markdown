@@ -548,6 +548,7 @@ GNU coreutils 8.22               January 2014                         ECHO(1)
 
 type命令用来显示指定命令的类型，判断给出的指令是内部指令还是外部指令。
 
+```shell
 语法
 type(选项)(参数)
 选项
@@ -563,6 +564,7 @@ function：函数，Shell函数
 builtin：内建命令，Shell内建命令
 file：文件，磁盘文件，外部命令
 unfound：没有找到
+```
 
 #### man,ls,touch,echo,cat 实验
 ```shell
