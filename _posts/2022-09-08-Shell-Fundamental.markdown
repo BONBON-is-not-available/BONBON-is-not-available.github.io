@@ -20,7 +20,7 @@ category:  project1
 [WashingtonU: Using vi, the Unix Visual Editor][1]
 <embed src="https://staff.washington.edu/rells/R110/#basics4" height="500px" width="100%">
 
-[github: Linux基础命令][2]
+[Runoob: linux教程][2]
 <embed src="https://www.runoob.com/linux/linux-file-content-manage.html" height="500px" width="100%">
 
 [1]:https://staff.washington.edu/rells/R110/#basics4
