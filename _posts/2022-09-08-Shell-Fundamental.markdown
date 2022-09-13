@@ -992,3 +992,10 @@ column  | short | B | C
 
 <p style="color:red">This is a red text with <span style="color:blue">blue</span> and <span style="color:green">green</span> inline text.</p>
 
+## 流程图
+
+```mermaid
+graph TD;
+    A-->B;
+    B-->C;
+```
