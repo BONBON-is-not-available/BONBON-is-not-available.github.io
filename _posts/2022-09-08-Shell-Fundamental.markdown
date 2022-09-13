@@ -135,7 +135,7 @@ rmdir:remove directory 删除目录
 ### cp
 cp: copy 复制文件
 | cp   | cp 源文件 目的地(目录) |
-| :--- | :------------------------ |
+| :---: | :------------------------ |
 | -p   | 保留文件原属性             |
 | -r   | 复制目录                  |
 
@@ -983,9 +983,21 @@ column  | short | B | C
 <p style="color:red">This is a red text with <span style="color:blue">blue</span> and <span style="color:green">green</span> inline text.</p>
 
 ## 流程图
-
 ```mermaid
-graph TD;
-    A-->B;
-    B-->C;
+    graph TB
+	subgraph 实线
+    A0[A] --- B0[B] 
+    A1[A] --> B1[B]
+    A2[A] -- 描述 --> B2[B] 
+    end
+    subgraph 虚线
+    A3[A] -.- B3[B] 
+   	A4[A] -.-> B4[B] 
+   	A5[A] -. 描述 .-> B5[B] 
+    end
+    subgraph 加粗线
+    A6[A] === B6[B]
+    A7[A] ==> B7[B] 
+    A8[A] == 描述 ==> B8[B] 
+    end
 ```
