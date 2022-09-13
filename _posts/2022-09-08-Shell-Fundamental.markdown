@@ -27,7 +27,6 @@ category:  project1
 [2]:https://www.runoob.com/linux/linux-file-content-manage.html
 
 
-
 # Linux基础命令
 ## 命令提示符
 
@@ -983,6 +982,10 @@ column  | short | B | C
 <p style="color:red">This is a red text with <span style="color:blue">blue</span> and <span style="color:green">green</span> inline text.</p>
 
 ## 流程图
+[Mermaid extension: github markdown流程图制表][3]
+<embed src="https://mermaid-js.github.io/mermaid/#/./integrations" height="500px" width="100%">
+[3]:https://mermaid-js.github.io/mermaid/#/./integrations
+
 ```mermaid
     graph TB
 	subgraph 实线
