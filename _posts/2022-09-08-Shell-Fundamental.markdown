@@ -1358,6 +1358,109 @@ tar -tf log.tar 查看打包文件
 注意 -f 参数后面必须接文件名
 ```
 
+## 独立搜索Q&A
+
+**1. chrontable是什么**
+
+**2. Shell字符串截取（非常详细）**
+**[Shell字符串截取][6]**
+[6]:https://blog.csdn.net/weixin_39591031/article/details/114028113?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166012109316781790782853%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166012109316781790782853&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-1-114028113-null-null.142^v40^control,185^v2^control&utm_term=shell%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96&spm=1018.2226.3001.4187
+
+**3. shell清空指令**
+
+**4. $0、$?、$!、$$、$*、$#、$@ 意义**
+
+|指令 | 意义 |
+|---------|:----------|
+|$$     | Shell本身的PID（ProcessID，即脚本运行的当前 进程ID号） |
+|$?     | 最后运行的命令的结束代码（返回值）即执行上一个指令的返回值 (显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误)|
+|$-     | 显示shell使用的当前选项，与set命令功能相同|
+|$./*   | 所有参数列表。如"$./* "用「"」括起来的情况、以"$1 $2 … $n"的形式输出所有参数，此选项参数可超过9个  |
+|$@     | 所有参数列表。如"$@"用「"」括起来的情况、以"$1" "$2" … "$n" 的形式输出所有参数  |
+|       | $@ 跟$./* 类似，但是可以当作数组用 |
+|$#     | 添加到Shell的参数个数|
+|$0     | Shell本身的文件名    |
+|$1～$n | 添加到Shell的各参数值。$1是第1参数、$2是第2参数… |
+
+```shell
+$$  Shell本身的PID（ProcessID，即脚本运行的当前 进程ID号）
+$!  Shell最后运行的后台Process的PID(后台运行的最后一个进程的 进程ID号)
+$?  最后运行的命令的结束代码（返回值）即执行上一个指令的返回值 (显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误)
+$-  显示shell使用的当前选项，与set命令功能相同
+$*  所有参数列表。如"$*"用「"」括起来的情况、以"$1 $2 … $n"的形式输出所有参数，此选项参数可超过9个。
+$@  所有参数列表。如"$@"用「"」括起来的情况、以"$1" "$2" … "$n" 的形式输出所有参数。
+$@ 跟$*类似，但是可以当作数组用
+$#  添加到Shell的参数个数
+$0  Shell本身的文件名
+$1～$n  添加到Shell的各参数值。$1是第1参数、$2是第2参数…。
+```
+
+## Here Document
+
+### 什么是Here Document
+
+### 使用方式&限制
+
+```shell
+使用格式
+
+命令 << 分隔串（最为常见的为EOF）
+字符串1
+…
+字符串n
+分隔串
+
+使用限制
+分割串常见的为EOF，但不一定固定为EOF，可以使用开发者自行定义的，比如LIUMIAO
+缺省方式下第二个分割串（EOF）必须顶格写，前后均不可有空格或者tab
+缺省方式下第一个分割串（EOF）前后均可有空格或者tab，运行时会自动剔除，不会造成影响
+
+使用场景示例：待补充!
+```
+
+**[Here Document免交互与Expect][7]**
+[7]:https://blog.csdn.net/qq_47855463/article/details/117106635?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166123933016782425163492%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166123933016782425163492&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-117106635-null-null.142^v42^control,185^v2^control&utm_term=here%20document&spm=1018.2226.3001.4187
+
+## 结合Oracle
+### sqlder ctl控制文件 参数及模板
+CTL 文件参数介绍
+**前面部分**
+LOAD DATA：通常以此为开头，其前可加如下参数：
+* UNRECOVERABLE：表示数据不可恢复
+* RECOVERABLE：表示数据可恢复
+* CONTINUE_LOAD：表示继续添加
+
+**主体部分**
+* INFILE：表示数据文件位置，如果值为*，表示数据就在控制文件中，本例中没有单独的数据文件，对于大多数加载而言，都会将数据文件与控制文件分离
+* INTO TABLE tbl_name：tbl_name 即数据要加载到的目标表，该表在你执行 SQLLDR 命令之前必须已经创建。
+* INSERT：向表中插入数据，表必须为空，如果表非空的话，执行 SQLLDR 命令时会报错，默认就是 INSERT 参数。
+* APPEND：向表中追加数据，不管表中是否有数据。
+* REPLACE：替换表中数据，相当于先 DELETE 表中全部数据，然后再 INSERT。
+* TRUNCATE：类似 REPLACE，只不过这里不使用 DELETE 方式删除表中数据，而是通过 TRUNCATE 的方式删除，然后再 INSERT。
+* FIELDS TERMINATED BY “,”：设置数据部分字符串的分隔值，这里设置为逗号（,）分隔，当然也可以换成其他任意可见字符，只要确定那是数据行中的分隔符就行。
+* (ENAME, JOB, SAL)：要插入的表的列名，这里需要注意的是列名要与表中列名完全相同，列的顺序可以与表中列顺序不同，但是必须与数据部分的列一一对应。
+* position 关键字用来指定列的开始和结束位置
+* position(m:n)：指从第 m 个字符开始截止到第 n 个字符作为列值
+* position(+2:15)：直接指定数值的方式叫做绝对偏移量，如果使用号，则为相对偏移量，表示上一个字段哪里结束，这次就哪里开始，相对便宜量也可以再做运算。
+* position(*) char(9)：这种相对偏移量+类型和长度的优势在于，你只需要为第一列指定开始位置，其他列只需要指定列长度就可以。
+* FILLER：控制文件中指定 FILLER，表示该列值不导入表中。
+* BEGINDATA：表示以下为待加载数据，仅当 INFILE 指定为 * 时有效
+
+```shell
+控制文件模板
+OPTIONS (BINDSIZE=2097152,READSIZE=2097152,ERRORS=-1,ROWS=90000)
+LOAD DATA
+INFILE 'E:\DATA\OS_DATA\OS_DUE.dat'
+truncate INTO TABLE OS_DUE
+FIELDS TERMINATED BY '|' TRAILING NULLCOLS
+(
+"DATA_DT" DATE "yyyy-mm-dd hh24:mi:ss",–时间类型
+"DUE_NO" CHAR(14),–字符类型
+"DUE_AMT" DECIMAL EXTERNAL,浮点类型吧
+"OVER_DAY" INTEGER EXTERNAL–整型
+)
+```
+
 
 ## Header 2
 
