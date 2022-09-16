@@ -1358,7 +1358,9 @@ tar -tf log.tar 查看打包文件
 
 **1. chrontable是什么**
 
-2. [Shell字符串截取][6]
+**2. shell 字符串截取**
+
+[Shell字符串截取][6]
 [6]:https://blog.csdn.net/weixin_39591031/article/details/114028113?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166012109316781790782853%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166012109316781790782853&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-1-114028113-null-null.142^v40^control,185^v2^control&utm_term=shell%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96&spm=1018.2226.3001.4187
 
 **3. shell清空指令**
@@ -1402,8 +1404,10 @@ $1～$n  添加到Shell的各参数值。$1是第1参数、$2是第2参数…。
 使用场景示例：待补充!
 ```
 
-[Here Document免交互与Expect][7]
-[7]:https://blog.csdn.net/qq_47855463/article/details/117106635?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166123933016782425163492%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166123933016782425163492&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-117106635-null-null.142^v42^control,185^v2^control&utm_term=here%20document&spm=1018.2226.3001.4187
+[Here Document免交互与Expect][9]
+
+[9]:https://blog.csdn.net/qq_47855463/article/details/117106635?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166123933016782425163492%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166123933016782425163492&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-117106635-null-null.142^v42^control,185^v2^control&utm_term=here%20document&spm=1018.2226.3001.4187
+
 
 ## 结合Oracle
 ### sqlder ctl控制文件 参数及模板
