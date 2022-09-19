@@ -345,6 +345,20 @@ booboo 20 100
 mark 20 200
 ```
 
+## 文件内容替换 + 字符串截取与处理
+
+![Description](http://bonbon-is-not-available.github.io/img/file_image/shell_str.jpg)
+
+### cut
+
+### awk
+
+### sed
+
+### while read do .... 
+
+
+
 ## 帮助命令
 
 | 命令             | 解释                                       |
