@@ -1360,10 +1360,6 @@ tar -tf log.tar 查看打包文件
 
 **2. shell 字符串截取**
 
-[Github: linux Intro][5]
-
-[5]:https://github.com/BoobooWei/booboo_linux_base
-
 [Shell字符串截取][6]
 
 [6]:https://blog.csdn.net/weixin_39591031/article/details/114028113?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166012109316781790782853%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166012109316781790782853&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-1-114028113-null-null.142^v40^control,185^v2^control&utm_term=shell%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96&spm=1018.2226.3001.4187
