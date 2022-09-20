@@ -63,6 +63,22 @@ category:  project1
 
 pwd: print working directory 显示当前所在位置的绝对路径
 
+
+### shell特殊变量 .\$0、\$?、$!、$$、$.\* 、$#、$@ 意义
+
+```shell
+$$  Shell本身的PID（ProcessID，即脚本运行的当前 进程ID号）
+$!  Shell最后运行的后台Process的PID(后台运行的最后一个进程的 进程ID号)
+$?  最后运行的命令的结束代码（返回值）即执行上一个指令的返回值 (显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误)
+$-  显示shell使用的当前选项，与set命令功能相同
+$*  所有参数列表。如"$*"用「"」括起来的情况、以"$1 $2 … $n"的形式输出所有参数，此选项参数可超过9个。
+$@  所有参数列表。如"$@"用「"」括起来的情况、以"$1" "$2" … "$n" 的形式输出所有参数。
+$@  跟$*类似，但是可以当作数组用
+$#  添加到Shell的参数个数
+$0  Shell本身的文件名
+$1～$n  添加到Shell的各参数值。$1是第1参数、$2是第2参数…。
+```
+
 ##  符号
 
 ### 通配符 *
@@ -100,6 +116,137 @@ drwxrwxr-x.
 -rw-rw-r--.
 ```
 
+## 针对文件的的基本操作
+
+### touch
+
+touch [filename] 
+
+创建文件,参数可以跟多个
+
+如果要创建 50 个有规律的文件,例如 text1-text50
+
+利用参数扩展
+
+```shell
+touch test{1..50}
+touch test{a..e}
+touch test{a..e}_{1..3}---> 会创建 a_1 a_2 a_3...
+```
+
+上帝之手,本来是用来修改文件时间戳的。文件的三个时间 ctime\mtime\atime
+
+拓展内容：可以通过“stat”命令查看文件的三个时间
+
+touch " " 可以放一些特殊字符
+
+#### touch实验
+
+```shell
+[tom@rhel7 ~]$ touch test{a..c}_{1..4}
+[tom@rhel7 ~]$ ls
+testa_1 testa_4 testb_3 testc_2
+testa_2 testb_1 testb_4 testc_3
+testa_3 testb_2 testc_1 testc_4
+
+--full-time可以查看mtime的完整时间
+
+[tom@rhel7 ~]$ ls -l --full-time
+total 0
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.853039590 +0800 testa_1
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.853039590 +0800 testa_2
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.853039590 +0800 testa_3
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.853039590 +0800 testa_4
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.853039590 +0800 testb_1
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.853039590 +0800 testb_2
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.853039590 +0800 testb_3
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.853039590 +0800 testb_4
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.854039544 +0800 testc_1
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.854039544 +0800 testc_2
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.854039544 +0800 testc_3
+-rw-rw-r--. 1 tom tom 0 2016-03-21 01:31:22.854039544 +0800 testc_4
+
+[tom@rhel7 ~]$ touch "ab cd"
+
+[tom@rhel7 ~]$ ls -b
+ab\ \ \ cd testa_3 testb_2 testc_1 testc_4
+testa_1 testa_4 testb_3 testc_2
+testa_2 testb_1 testb_4 testc_3
+```
+
+#### touch拓展实验
+
+```shell
+[booboo@rhel7 ~]$ touch booboo
+[booboo@rhel7 ~]$ ll
+total 0
+-rw-rw-r--. 1 booboo booboo 0 Jun 15 23:28 booboo
+[booboo@rhel7 ~]$ stat booboo
+  File: ‘booboo’
+  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: fd01h/64769d	Inode: 143         Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1001/  booboo)   Gid: ( 1001/  booboo)
+Context: unconfined_u:object_r:user_home_t:s0
+Access: 2016-06-15 23:28:55.041578819 -0400     #atime 文件最近一次被访问的时间
+Modify: 2016-06-15 23:28:55.041578819 -0400    #mtime 文件内容最近一次修改的时间
+Change: 2016-06-15 23:28:55.041578819 -0400    #ctime 文件属性最近一次修改的时间
+ Birth: -
+```
+
+使用cat去访问booboo文件，可以发现atime被修改了
+
+```shell
+[booboo@rhel7 ~]$ cat booboo
+[booboo@rhel7 ~]$ stat booboo
+  File: ‘booboo’
+  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: fd01h/64769d	Inode: 143         Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1001/  booboo)   Gid: ( 1001/  booboo)
+Context: unconfined_u:object_r:user_home_t:s0
+Access: 2016-06-15 23:32:35.898724748 -0400
+Modify: 2016-06-15 23:28:55.041578819 -0400
+Change: 2016-06-15 23:28:55.041578819 -0400
+ Birth: -
+```
+
+通过chmod修改文件权限后，会看到ctime时间改变，通过ll命令看到的时间为mtime
+
+```shell
+[booboo@rhel7 ~]$ chmod 777 booboo
+[booboo@rhel7 ~]$ ll
+total 0
+-rwxrwxrwx. 1 booboo booboo 0 Jun 15 23:28 booboo  
+[booboo@rhel7 ~]$ stat booboo
+  File: ‘booboo’
+  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: fd01h/64769d	Inode: 143         Links: 1
+Access: (0777/-rwxrwxrwx)  Uid: ( 1001/  booboo)   Gid: ( 1001/  booboo)
+Context: unconfined_u:object_r:user_home_t:s0
+Access: 2016-06-15 23:32:35.898724748 -0400
+Modify: 2016-06-15 23:28:55.041578819 -0400
+Change: 2016-06-15 23:33:49.195445761 -0400
+ Birth: -
+```
+
+通过echo命令向booboo文件追加一些内容，会看到mtime时间变了，并且ctime也变了，思考为什么？
+
+```shell
+[booboo@rhel7 ~]$ echo hi >> booboo
+[booboo@rhel7 ~]$ ll
+total 4
+-rwxrwxrwx. 1 booboo booboo 3 Jun 15 23:34 booboo
+[booboo@rhel7 ~]$ stat booboo
+  File: ‘booboo’
+  Size: 3         	Blocks: 8          IO Block: 4096   regular file
+Device: fd01h/64769d	Inode: 143         Links: 1
+Access: (0777/-rwxrwxrwx)  Uid: ( 1001/  booboo)   Gid: ( 1001/  booboo)
+Context: unconfined_u:object_r:user_home_t:s0
+Access: 2016-06-15 23:32:35.898724748 -0400
+Modify: 2016-06-15 23:34:53.251332183 -0400
+Change: 2016-06-15 23:34:53.251332183 -0400
+ Birth: -
+```
+
 ### rm
 
 | rm   |      [filename] remove 删除文件,对 root 用户有提示,普通用户没有提示 |
@@ -110,7 +257,7 @@ drwxrwxr-x.
 
 ### mkdir
 
-mkdir:make directory 创建目录
+mkdir :make directory 创建目录
 
 `mkdir -p /test/test1`
 
@@ -126,7 +273,7 @@ mkdir:make directory 创建目录
  
 ### rmdir
 
-rmdir:remove directory 删除目录
+rmdir: remove directory 删除目录
 
 只能删除空目录,出于安全性的考虑
 
@@ -136,17 +283,11 @@ rmdir:remove directory 删除目录
 
 ### cp
 cp: copy 复制文件
+
 | cp   | cp 源文件 目的地(目录) |
-| :---: | :------------------------ |
+| :---: | :---------------------------------------: |
 | -p   | 保留文件原属性             |
 | -r   | 复制目录                  |
-
-
-| rm   |      [filename] remove 删除文件,对 root 用户有提示,普通用户没有提示 |
-| :---: | :---------------------------------------: |
-| -f   | force 强制删除, root 无提示                     |
-| -i   | 普通用户有提示的删除                               |
-| -r   | 递归删除,慎重使用 -rf                            |
 
 ### mv
 
@@ -213,12 +354,6 @@ eg.
 grep bash$ /etc/passwd 
 ```
 
-cut: 截取列
-
-```shell
-cut -d" 分割符 "( 以什么为分隔符 ) -fn( 第几列 ) [ 文件 ]
-eg. cut -d":" -f2 /etc/resolv.conf
-```
 
 wc: 统计
 
@@ -274,20 +409,6 @@ shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
 halt:x:7:0:halt:/sbin:/sbin/halt
 student:x:1000:1000:student:/home/student:/bin/bash
 booboo:x:1001:1001::/home/booboo:/bin/bash
-
-cut
-
-[booboo@rhel7 ~]$ cut -d":" -f1 passwd
-root
-bin
-daemon
-adm
-lp
-sync
-shutdown
-halt
-mail
-
 
 wc
 
@@ -345,255 +466,138 @@ booboo 20 100
 mark 20 200
 ```
 
-## 文件内容替换 + 字符串截取与处理
+### 文件内容替换 + 字符串截取与处理
 
 ![Description](http://bonbon-is-not-available.github.io/img/file_image/shell_str.jpg)
 
-### cut
-
-### awk
-
-### sed
-
-### while read do .... 
-
-
-
-## 帮助命令
-
-| 命令             | 解释                                       |
-| :------------- | :--------------------------------------- |
-| type [ 命令 ]    | 判断是内部命令 or 外部命令                          |
-| --help         | 外部命令                                     |
-| help           | 只针对系统内部命令                                |
-| man []         | 内容清晰、详细,在线文档,支持搜索( /name ) `man [ 章节 ] [name]` |
-| info []        | 太详细                                      |
-| /usr/share/doc | 存放帮助文档,在与软件同名的目录下有所有软件的使用文档              |
-
-**man和—help以及help的区别**
-
-_man命令_
-
-系统中会有单独的man文件，就是说，如果系统没有安装对应man文件，哪怕命令完全正常，man都没结果（同样，只要安装了man文件，哪怕没命令，也可以得到一大堆东西）。
-
-_--help参数_
-
-将会显示可执行程序自带的信息，这些信息是嵌入到程序本身的，所以--help信息较简短。
-
-_help命令_
-
-是选项帮助命令，顾名思义  你可以把单独某个命令的某个选项列出来，方便快捷很多，省去了man当中查找的繁琐，但是help只支持shell的内部命令。内部命令即存储在shell内部可以直接调用的一些简单命令，比如说echo，cd，pwd等。
-
-### --help 参数
-
---help参数是大所数命令自带的选项，用于查看使用帮助。
+#### cut:截取列
 
 ```shell
-[booboo@rhel7 ~]$ ls --help
-Usage: ls [OPTION]... [FILE]...
-List information about the FILEs (the current directory by default).
-Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
-
-Mandatory arguments to long options are mandatory for short options too.
-  -a, --all                  do not ignore entries starting with .
-  -A, --almost-all           do not list implied . and ..
-      --author               with -l, print the author of each file
-  -b, --escape               print C-style escapes for nongraphic characters
-      --block-size=SIZE      scale sizes by SIZE before printing them; e.g.,
-                               '--block-size=M' prints sizes in units of
-                               1,048,576 bytes; see SIZE format below
-  -B, --ignore-backups       do not list implied entries ending with ~
-  -c                         with -lt: sort by, and show, ctime (time of last
-                               modification of file status information);
-                               with -l: show ctime and sort by name;
-                               otherwise: sort by ctime, newest first
-  -C                         list entries by columns
-      --color[=WHEN]         colorize the output; WHEN can be 'never', 'auto',
-                               or 'always' (the default); more info below
-  -d, --directory            list directories themselves, not their contents
-  -D, --dired                generate output designed for Emacs' dired mode
-  -f                         do not sort, enable -aU, disable -ls --color
+cut -d" 分割符 "( 以什么为分隔符 ) -fn( 第几列 ) [ 文件 ]
+eg. cut -d":" -f2 /etc/resolv.conf
 ```
 
-### help
+#### awk
 
-help只支持shell的内部命令。内部命令即存储在shell内部可以直接调用的一些简单命令,例如cd,echo,help等。
+具备强大的文本格式化能力，awk支持条件判断，数组，循环等诸多的功能；
 
-help(选项)(参数)
--s：输出短格式的帮助信息。仅包括命令格式。
+[awk命令详解1][7]
+
+[7]https://blog.csdn.net/zhangcongyi420/article/details/125692179?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166328897216782388044630%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166328897216782388044630&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-125692179-null-null.142^v47^control,201^v3^control_1&utm_term=linux%20awk&spm=1018.2226.3001.4187
+
+[awk命令详解2][8]
+
+[8]https://blog.csdn.net/anqixiang/article/details/117903529?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166011929016781667822292%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166011929016781667822292&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-117903529-null-null.142^v40^control,185^v2^control&utm_term=awk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3&spm=1018.2226.3001.4187
+
+**awk语法**
+
+awk  [option]  'pattern[action]'  file ...
+
+awk   参数       条件动作           文件
+
+
+#### sed
+
+[无法使用] sed -i
+
+
+
+
+#### while read do .... 
+
+#### .\# % 字符串截取
+
+[Shell字符串截取][6]
+
+[6]:https://blog.csdn.net/weixin_39591031/article/details/114028113?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166012109316781790782853%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166012109316781790782853&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-1-114028113-null-null.142^v40^control,185^v2^control&utm_term=shell%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96&spm=1018.2226.3001.4187
+
+#### 文件过滤实验
+
+```
+cut
+
+[booboo@rhel7 ~]$ cut -d":" -f1 passwd
+root
+bin
+daemon
+adm
+lp
+sync
+shutdown
+halt
+mail
+```
+
+## Here Document
+
+### 什么是Here Document
+用于传入多行分割参数给执行命令
+
+### 使用方式&限制
 
 ```shell
-[booboo@rhel7 ~]$ type cd
-cd is a shell builtin
-[booboo@rhel7 ~]$ help cd
-cd: cd [-L|[-P [-e]]] [dir]
-    Change the shell working directory.
+使用格式
 
-    Change the current directory to DIR.  The default DIR is the value of the
-    HOME shell variable.
+命令 << 分隔串（最为常见的为EOF）
+字符串1
+…
+字符串n
+分隔串
+```
+```shell
+使用限制
+分割串常见的为EOF，但不一定固定为EOF，可以使用开发者自行定义的，比如LIUMIAO
+缺省方式下第二个分割串（EOF）必须顶格写，前后均不可有空格或者tab
+缺省方式下第一个分割串（EOF）前后均可有空格或者tab，运行时会自动剔除，不会造成影响
 
-    The variable CDPATH defines the search path for the directory containing
-    DIR.  Alternative directory names in CDPATH are separated by a colon (:).
-    A null directory name is the same as the current directory.  If DIR begins
-    with a slash (/), then CDPATH is not used.
-
-    If the directory is not found, and the shell option `cdable_vars' is set,
-    the word is assumed to be  a variable name.  If that variable has a value,
-    its value is used for DIR.
-
-    Options:
-        -L	force symbolic links to be followed
-        -P	use the physical directory structure without following symbolic
-    	links
-        -e	if the -P option is supplied, and the current working directory
-    	cannot be determined successfully, exit with a non-zero status
-
-    The default is to follow symbolic links, as if `-L' were specified.
-
-    Exit Status:
-    Returns 0 if the directory is changed, and if $PWD is set successfully when
-    -P is used; non-zero otherwise.
-[booboo@rhel7 ~]$ type touch
-touch is hashed (/bin/touch)
-[booboo@rhel7 ~]$ type echo
-echo is a shell builtin
-[booboo@rhel7 ~]$ help echo
-echo: echo [-neE] [arg ...]
+使用场景示例：待补充!
 ```
 
-### man
-man命令是Linux下的帮助指令，通过man指令可以查看Linux中的指令帮助、配置文件帮助和编程帮助等信息。
+[Here Document免交互与Expect][9]
 
-```config
-语法
-man(选项)(参数)
-选项
--a：在所有的man帮助手册中搜索；
--f：等价于whatis指令，显示给定关键字的简短描述信息；
--P：指定内容时使用分页程序；
--M：指定man手册搜索的路径。
-参数
-数字：指定从哪本man手册中搜索帮助
-关键字：指定要搜索帮助的关键字
-```
+[9]:https://blog.csdn.net/qq_47855463/article/details/117106635?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166123933016782425163492%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166123933016782425163492&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-117106635-null-null.142^v42^control,185^v2^control&utm_term=here%20document&spm=1018.2226.3001.4187
 
-例如输入man ls，它会在左上角显示“ECHO(1)”“ECHO”代表手册名称；“(1)”代表 表示该手册位于第一节章1）”表示该手册位于第一节章，同样，我们输man ifconfig它会在最左上角显示“IFCONFIG（8）”。也可以这样输入命令：“man [章节号] 手册名称”。 man是按照手册的章节号的顺序进行搜索的，比如： man sleep 只会显示sleep命令的手册,如果想查看库函数sleep，就要输入: man 3 sleep
+
+## 结合Oracle的文件传输
+### sqlder ctl控制文件 参数及模板
+CTL 文件参数介绍
+**前面部分**
+LOAD DATA：通常以此为开头，其前可加如下参数：
+* UNRECOVERABLE：表示数据不可恢复
+* RECOVERABLE：表示数据可恢复
+* CONTINUE_LOAD：表示继续添加
+
+**主体部分**
+* INFILE：表示数据文件位置，如果值为*，表示数据就在控制文件中，本例中没有单独的数据文件，对于大多数加载而言，都会将数据文件与控制文件分离
+* INTO TABLE tbl_name：tbl_name 即数据要加载到的目标表，该表在你执行 SQLLDR 命令之前必须已经创建。
+* INSERT：向表中插入数据，表必须为空，如果表非空的话，执行 SQLLDR 命令时会报错，默认就是 INSERT 参数。
+* APPEND：向表中追加数据，不管表中是否有数据。
+* REPLACE：替换表中数据，相当于先 DELETE 表中全部数据，然后再 INSERT。
+* TRUNCATE：类似 REPLACE，只不过这里不使用 DELETE 方式删除表中数据，而是通过 TRUNCATE 的方式删除，然后再 INSERT。
+* FIELDS TERMINATED BY “,”：设置数据部分字符串的分隔值，这里设置为逗号（,）分隔，当然也可以换成其他任意可见字符，只要确定那是数据行中的分隔符就行。
+* (ENAME, JOB, SAL)：要插入的表的列名，这里需要注意的是列名要与表中列名完全相同，列的顺序可以与表中列顺序不同，但是必须与数据部分的列一一对应。
+* position 关键字用来指定列的开始和结束位置
+* position(m:n)：指从第 m 个字符开始截止到第 n 个字符作为列值
+* position(+2:15)：直接指定数值的方式叫做绝对偏移量，如果使用号，则为相对偏移量，表示上一个字段哪里结束，这次就哪里开始，相对便宜量也可以再做运算。
+* position(*) char(9)：这种相对偏移量+类型和长度的优势在于，你只需要为第一列指定开始位置，其他列只需要指定列长度就可以。
+* FILLER：控制文件中指定 FILLER，表示该列值不导入表中。
+* BEGINDATA：表示以下为待加载数据，仅当 INFILE 指定为 * 时有效
 
 ```shell
-[booboo@rhel7 ~]$ man echo|cat
-ECHO(1)                         User Commands                         ECHO(1)
-#此处“ECHO”代表手册名称；“（1）”代表 表示该手册位于第一节章
-
-
-
-NAME
-       echo - display a line of text
-
-SYNOPSIS
-       echo [SHORT-OPTION]... [STRING]...
-       echo LONG-OPTION
-
-DESCRIPTION
-       Echo the STRING(s) to standard output.
-
-       -n     do not output the trailing newline
-
-       -e     enable interpretation of backslash escapes
-
-       -E     disable interpretation of backslash escapes (default)
-
-       --help display this help and exit
-
-       --version
-              output version information and exit
-
-       If -e is in effect, the following sequences are recognized:
-
-       \\     backslash
-
-       \a     alert (BEL)
-
-       \b     backspace
-
-       \c     produce no further output
-
-       \e     escape
-
-       \f     form feed
-
-       \n     new line
-
-       \r     carriage return
-
-       \t     horizontal tab
-
-       \v     vertical tab
-
-       \0NNN  byte with octal value NNN (1 to 3 digits)
-
-       \xHH   byte with hexadecimal value HH (1 to 2 digits)
-
-       NOTE:  your  shell  may  have  its  own version of echo, which usually
-       supersedes the version described here.  Please refer to  your  shell's
-       documentation for details about the options it supports.
-
-       GNU  coreutils  online  help: <http://www.gnu.org/software/coreutils/>
-       Report echo translation bugs to <http://translationproject.org/team/>
-AUTHOR
-       Written by Brian Fox and Chet Ramey.
-COPYRIGHT
-       Copyright © 2013 Free Software Foundation, Inc.  License  GPLv3+:  GNU
-       GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
-       This  is  free  software:  you are free to change and redistribute it.
-       There is NO WARRANTY, to the extent permitted by law.
-SEE ALSO
-       The full documentation for echo is maintained as a Texinfo manual.  If
-       the  info  and  echo programs are properly installed at your site, the
-       command
-             info coreutils 'echo invocation'
-      should give you access to the complete manual.
-
-GNU coreutils 8.22               January 2014                         ECHO(1)
+控制文件模板
+OPTIONS (BINDSIZE=2097152,READSIZE=2097152,ERRORS=-1,ROWS=90000)
+LOAD DATA
+INFILE 'E:\DATA\OS_DATA\OS_DUE.dat'
+truncate INTO TABLE OS_DUE
+FIELDS TERMINATED BY '|' TRAILING NULLCOLS
+(
+"DATA_DT" DATE "yyyy-mm-dd hh24:mi:ss",–时间类型
+"DUE_NO" CHAR(14),–字符类型
+"DUE_AMT" DECIMAL EXTERNAL,浮点类型吧
+"OVER_DAY" INTEGER EXTERNAL–整型
+)
 ```
 
-### type
-
-type命令用来显示指定命令的类型，判断给出的指令是内部指令还是外部指令。
-
-```shell
-语法
-type(选项)(参数)
-选项
--t：输出“file”、“alias”或者“builtin”，分别表示给定的指令为“外部指令”、“命令别名”或者“内部指令”；
--p：如果给出的指令为外部指令，则显示其绝对路径；
--a：在环境变量“PATH”指定的路径中，显示给定指令的信息，包括命令别名。 参数 指令：要显示类型的指令。
-参数
-关键字：指定要搜索帮助的关键字
-命令类型
-alias：别名
-keyword：关键字，Shell保留字
-function：函数，Shell函数
-builtin：内建命令，Shell内建命令
-file：文件，磁盘文件，外部命令
-unfound：没有找到
-```
-
-#### man,ls,touch,echo,cat 实验
-```shell
-[booboo@rhel7 ~]$ type man
-man is /bin/man
-[booboo@rhel7 ~]$ type ls
-ls is aliased to `ls –color=auto'
-[booboo@rhel7 ~]$ which ls
-alias ls='ls --color=auto'
-	/bin/ls
-[booboo@rhel7 ~]$ type touch
-touch is hashed (/bin/touch)
-[booboo@rhel7 ~]$ type echo
-echo is a shell builtin
-[booboo@rhel7 ~]$ type cat
-cat is hashed (/bin/cat)
-```
 ## 关于时间的命令
 
 ### date
@@ -1368,108 +1372,255 @@ tar -tf log.tar 查看打包文件
 注意 -f 参数后面必须接文件名
 ```
 
+
+
+## 帮助命令
+
+| 命令             | 解释                                       |
+| :------------- | :--------------------------------------- |
+| type [ 命令 ]    | 判断是内部命令 or 外部命令                          |
+| --help         | 外部命令                                     |
+| help           | 只针对系统内部命令                                |
+| man []         | 内容清晰、详细,在线文档,支持搜索( /name ) `man [ 章节 ] [name]` |
+| info []        | 太详细                                      |
+| /usr/share/doc | 存放帮助文档,在与软件同名的目录下有所有软件的使用文档              |
+
+**man和—help以及help的区别**
+
+_man命令_
+
+系统中会有单独的man文件，就是说，如果系统没有安装对应man文件，哪怕命令完全正常，man都没结果（同样，只要安装了man文件，哪怕没命令，也可以得到一大堆东西）。
+
+_--help参数_
+
+将会显示可执行程序自带的信息，这些信息是嵌入到程序本身的，所以--help信息较简短。
+
+_help命令_
+
+是选项帮助命令，顾名思义  你可以把单独某个命令的某个选项列出来，方便快捷很多，省去了man当中查找的繁琐，但是help只支持shell的内部命令。内部命令即存储在shell内部可以直接调用的一些简单命令，比如说echo，cd，pwd等。
+
+### --help 参数
+
+--help参数是大所数命令自带的选项，用于查看使用帮助。
+
+```shell
+[booboo@rhel7 ~]$ ls --help
+Usage: ls [OPTION]... [FILE]...
+List information about the FILEs (the current directory by default).
+Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
+
+Mandatory arguments to long options are mandatory for short options too.
+  -a, --all                  do not ignore entries starting with .
+  -A, --almost-all           do not list implied . and ..
+      --author               with -l, print the author of each file
+  -b, --escape               print C-style escapes for nongraphic characters
+      --block-size=SIZE      scale sizes by SIZE before printing them; e.g.,
+                               '--block-size=M' prints sizes in units of
+                               1,048,576 bytes; see SIZE format below
+  -B, --ignore-backups       do not list implied entries ending with ~
+  -c                         with -lt: sort by, and show, ctime (time of last
+                               modification of file status information);
+                               with -l: show ctime and sort by name;
+                               otherwise: sort by ctime, newest first
+  -C                         list entries by columns
+      --color[=WHEN]         colorize the output; WHEN can be 'never', 'auto',
+                               or 'always' (the default); more info below
+  -d, --directory            list directories themselves, not their contents
+  -D, --dired                generate output designed for Emacs' dired mode
+  -f                         do not sort, enable -aU, disable -ls --color
+```
+
+### help
+
+help只支持shell的内部命令。内部命令即存储在shell内部可以直接调用的一些简单命令,例如cd,echo,help等。
+
+help(选项)(参数)
+-s：输出短格式的帮助信息。仅包括命令格式。
+
+```shell
+[booboo@rhel7 ~]$ type cd
+cd is a shell builtin
+[booboo@rhel7 ~]$ help cd
+cd: cd [-L|[-P [-e]]] [dir]
+    Change the shell working directory.
+
+    Change the current directory to DIR.  The default DIR is the value of the
+    HOME shell variable.
+
+    The variable CDPATH defines the search path for the directory containing
+    DIR.  Alternative directory names in CDPATH are separated by a colon (:).
+    A null directory name is the same as the current directory.  If DIR begins
+    with a slash (/), then CDPATH is not used.
+
+    If the directory is not found, and the shell option `cdable_vars' is set,
+    the word is assumed to be  a variable name.  If that variable has a value,
+    its value is used for DIR.
+
+    Options:
+        -L	force symbolic links to be followed
+        -P	use the physical directory structure without following symbolic
+    	links
+        -e	if the -P option is supplied, and the current working directory
+    	cannot be determined successfully, exit with a non-zero status
+
+    The default is to follow symbolic links, as if `-L' were specified.
+
+    Exit Status:
+    Returns 0 if the directory is changed, and if $PWD is set successfully when
+    -P is used; non-zero otherwise.
+[booboo@rhel7 ~]$ type touch
+touch is hashed (/bin/touch)
+[booboo@rhel7 ~]$ type echo
+echo is a shell builtin
+[booboo@rhel7 ~]$ help echo
+echo: echo [-neE] [arg ...]
+```
+
+### man
+man命令是Linux下的帮助指令，通过man指令可以查看Linux中的指令帮助、配置文件帮助和编程帮助等信息。
+
+```config
+语法
+man(选项)(参数)
+选项
+-a：在所有的man帮助手册中搜索；
+-f：等价于whatis指令，显示给定关键字的简短描述信息；
+-P：指定内容时使用分页程序；
+-M：指定man手册搜索的路径。
+参数
+数字：指定从哪本man手册中搜索帮助
+关键字：指定要搜索帮助的关键字
+```
+
+例如输入man ls，它会在左上角显示“ECHO(1)”“ECHO”代表手册名称；“(1)”代表 表示该手册位于第一节章1）”表示该手册位于第一节章，同样，我们输man ifconfig它会在最左上角显示“IFCONFIG（8）”。也可以这样输入命令：“man [章节号] 手册名称”。 man是按照手册的章节号的顺序进行搜索的，比如： man sleep 只会显示sleep命令的手册,如果想查看库函数sleep，就要输入: man 3 sleep
+
+```shell
+[booboo@rhel7 ~]$ man echo|cat
+ECHO(1)                         User Commands                         ECHO(1)
+#此处“ECHO”代表手册名称；“（1）”代表 表示该手册位于第一节章
+
+
+
+NAME
+       echo - display a line of text
+
+SYNOPSIS
+       echo [SHORT-OPTION]... [STRING]...
+       echo LONG-OPTION
+
+DESCRIPTION
+       Echo the STRING(s) to standard output.
+
+       -n     do not output the trailing newline
+
+       -e     enable interpretation of backslash escapes
+
+       -E     disable interpretation of backslash escapes (default)
+
+       --help display this help and exit
+
+       --version
+              output version information and exit
+
+       If -e is in effect, the following sequences are recognized:
+
+       \\     backslash
+
+       \a     alert (BEL)
+
+       \b     backspace
+
+       \c     produce no further output
+
+       \e     escape
+
+       \f     form feed
+
+       \n     new line
+
+       \r     carriage return
+
+       \t     horizontal tab
+
+       \v     vertical tab
+
+       \0NNN  byte with octal value NNN (1 to 3 digits)
+
+       \xHH   byte with hexadecimal value HH (1 to 2 digits)
+
+       NOTE:  your  shell  may  have  its  own version of echo, which usually
+       supersedes the version described here.  Please refer to  your  shell's
+       documentation for details about the options it supports.
+
+       GNU  coreutils  online  help: <http://www.gnu.org/software/coreutils/>
+       Report echo translation bugs to <http://translationproject.org/team/>
+AUTHOR
+       Written by Brian Fox and Chet Ramey.
+COPYRIGHT
+       Copyright © 2013 Free Software Foundation, Inc.  License  GPLv3+:  GNU
+       GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+       This  is  free  software:  you are free to change and redistribute it.
+       There is NO WARRANTY, to the extent permitted by law.
+SEE ALSO
+       The full documentation for echo is maintained as a Texinfo manual.  If
+       the  info  and  echo programs are properly installed at your site, the
+       command
+             info coreutils 'echo invocation'
+      should give you access to the complete manual.
+
+GNU coreutils 8.22               January 2014                         ECHO(1)
+```
+
+### type
+
+type命令用来显示指定命令的类型，判断给出的指令是内部指令还是外部指令。
+
+```shell
+语法
+type(选项)(参数)
+选项
+-t：输出“file”、“alias”或者“builtin”，分别表示给定的指令为“外部指令”、“命令别名”或者“内部指令”；
+-p：如果给出的指令为外部指令，则显示其绝对路径；
+-a：在环境变量“PATH”指定的路径中，显示给定指令的信息，包括命令别名。 参数 指令：要显示类型的指令。
+参数
+关键字：指定要搜索帮助的关键字
+命令类型
+alias：别名
+keyword：关键字，Shell保留字
+function：函数，Shell函数
+builtin：内建命令，Shell内建命令
+file：文件，磁盘文件，外部命令
+unfound：没有找到
+```
+
+#### man,ls,touch,echo,cat 实验
+```shell
+[booboo@rhel7 ~]$ type man
+man is /bin/man
+[booboo@rhel7 ~]$ type ls
+ls is aliased to `ls –color=auto'
+[booboo@rhel7 ~]$ which ls
+alias ls='ls --color=auto'
+	/bin/ls
+[booboo@rhel7 ~]$ type touch
+touch is hashed (/bin/touch)
+[booboo@rhel7 ~]$ type echo
+echo is a shell builtin
+[booboo@rhel7 ~]$ type cat
+cat is hashed (/bin/cat)
+```
+
 ## 独立搜索Q&A
-
 **1. chrontable是什么**
-
-**2. shell 字符串截取**
-
-[Shell字符串截取][6]
-
-[6]:https://blog.csdn.net/weixin_39591031/article/details/114028113?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166012109316781790782853%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166012109316781790782853&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_click~default-1-114028113-null-null.142^v40^control,185^v2^control&utm_term=shell%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96&spm=1018.2226.3001.4187
-
 **3. shell清空指令**
-
-**4. .\$0、\$?、$!、$$、$.\* 、$#、$@ 意义**
-
-```shell
-$$  Shell本身的PID（ProcessID，即脚本运行的当前 进程ID号）
-$!  Shell最后运行的后台Process的PID(后台运行的最后一个进程的 进程ID号)
-$?  最后运行的命令的结束代码（返回值）即执行上一个指令的返回值 (显示最后命令的退出状态。0表示没有错误，其他任何值表明有错误)
-$-  显示shell使用的当前选项，与set命令功能相同
-$*  所有参数列表。如"$*"用「"」括起来的情况、以"$1 $2 … $n"的形式输出所有参数，此选项参数可超过9个。
-$@  所有参数列表。如"$@"用「"」括起来的情况、以"$1" "$2" … "$n" 的形式输出所有参数。
-$@  跟$*类似，但是可以当作数组用
-$#  添加到Shell的参数个数
-$0  Shell本身的文件名
-$1～$n  添加到Shell的各参数值。$1是第1参数、$2是第2参数…。
-```
-
-## Here Document
-
-### 什么是Here Document
-
-### 使用方式&限制
-
-```shell
-使用格式
-
-命令 << 分隔串（最为常见的为EOF）
-字符串1
-…
-字符串n
-分隔串
-```
-```shell
-使用限制
-分割串常见的为EOF，但不一定固定为EOF，可以使用开发者自行定义的，比如LIUMIAO
-缺省方式下第二个分割串（EOF）必须顶格写，前后均不可有空格或者tab
-缺省方式下第一个分割串（EOF）前后均可有空格或者tab，运行时会自动剔除，不会造成影响
-
-使用场景示例：待补充!
-```
-
-[Here Document免交互与Expect][9]
-
-[9]:https://blog.csdn.net/qq_47855463/article/details/117106635?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166123933016782425163492%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166123933016782425163492&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-2-117106635-null-null.142^v42^control,185^v2^control&utm_term=here%20document&spm=1018.2226.3001.4187
+https://blog.csdn.net/weixin_34338504/article/details/113011529?ops_request_misc=&request_id=&biz_id=102&utm_term=shell%E6%B8%85%E7%A9%BA%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-113011529.142^v40^control,185^v2^control&spm=1018.2226.3001.4187
 
 
-## 结合Oracle
-### sqlder ctl控制文件 参数及模板
-CTL 文件参数介绍
-**前面部分**
-LOAD DATA：通常以此为开头，其前可加如下参数：
-* UNRECOVERABLE：表示数据不可恢复
-* RECOVERABLE：表示数据可恢复
-* CONTINUE_LOAD：表示继续添加
-
-**主体部分**
-* INFILE：表示数据文件位置，如果值为*，表示数据就在控制文件中，本例中没有单独的数据文件，对于大多数加载而言，都会将数据文件与控制文件分离
-* INTO TABLE tbl_name：tbl_name 即数据要加载到的目标表，该表在你执行 SQLLDR 命令之前必须已经创建。
-* INSERT：向表中插入数据，表必须为空，如果表非空的话，执行 SQLLDR 命令时会报错，默认就是 INSERT 参数。
-* APPEND：向表中追加数据，不管表中是否有数据。
-* REPLACE：替换表中数据，相当于先 DELETE 表中全部数据，然后再 INSERT。
-* TRUNCATE：类似 REPLACE，只不过这里不使用 DELETE 方式删除表中数据，而是通过 TRUNCATE 的方式删除，然后再 INSERT。
-* FIELDS TERMINATED BY “,”：设置数据部分字符串的分隔值，这里设置为逗号（,）分隔，当然也可以换成其他任意可见字符，只要确定那是数据行中的分隔符就行。
-* (ENAME, JOB, SAL)：要插入的表的列名，这里需要注意的是列名要与表中列名完全相同，列的顺序可以与表中列顺序不同，但是必须与数据部分的列一一对应。
-* position 关键字用来指定列的开始和结束位置
-* position(m:n)：指从第 m 个字符开始截止到第 n 个字符作为列值
-* position(+2:15)：直接指定数值的方式叫做绝对偏移量，如果使用号，则为相对偏移量，表示上一个字段哪里结束，这次就哪里开始，相对便宜量也可以再做运算。
-* position(*) char(9)：这种相对偏移量+类型和长度的优势在于，你只需要为第一列指定开始位置，其他列只需要指定列长度就可以。
-* FILLER：控制文件中指定 FILLER，表示该列值不导入表中。
-* BEGINDATA：表示以下为待加载数据，仅当 INFILE 指定为 * 时有效
-
-```shell
-控制文件模板
-OPTIONS (BINDSIZE=2097152,READSIZE=2097152,ERRORS=-1,ROWS=90000)
-LOAD DATA
-INFILE 'E:\DATA\OS_DATA\OS_DUE.dat'
-truncate INTO TABLE OS_DUE
-FIELDS TERMINATED BY '|' TRAILING NULLCOLS
-(
-"DATA_DT" DATE "yyyy-mm-dd hh24:mi:ss",–时间类型
-"DUE_NO" CHAR(14),–字符类型
-"DUE_AMT" DECIMAL EXTERNAL,浮点类型吧
-"OVER_DAY" INTEGER EXTERNAL–整型
-)
-```
-
+# Markdown格式
 
 ## Header 2
 
 ### Header 3
-
-## Styling
 
 **Bold**
 
