@@ -496,6 +496,7 @@ eg. cut -d":" -f2 /etc/resolv.conf
 [8]:https://blog.csdn.net/anqixiang/article/details/117903529?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166011929016781667822292%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166011929016781667822292&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-117903529-null-null.142^v40^control,185^v2^control&utm_term=awk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3&spm=1018.2226.3001.4187
 
 [awk命令详解3][9]
+
 [9]:https://blog.csdn.net/qq_22253901/article/details/118094440?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166329183716782417014099%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166329183716782417014099&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~baidu_landing_v2~default-2-118094440-null-null.142^v47^control,201^v3^control_1&utm_term=linux%20awk%20ofs&spm=1018.2226.3001.4187
 
 **awk语法**
@@ -1681,8 +1682,10 @@ cat is hashed (/bin/cat)
 ## 独立搜索Q&A
 **1. chrontable是什么**
 **2. shell清空指令**
+
 https://blog.csdn.net/weixin_34338504/article/details/113011529?ops_request_misc=&request_id=&biz_id=102&utm_term=shell%E6%B8%85%E7%A9%BA%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-113011529.142^v40^control,185^v2^control&spm=1018.2226.3001.4187
-**3. 不可用于文件名的符号 "/"
+
+**3. 不可用于文件名的符号 "/"**
 
 # vi 命令
 
