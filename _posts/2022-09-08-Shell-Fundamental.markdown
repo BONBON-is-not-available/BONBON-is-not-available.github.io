@@ -1681,6 +1681,7 @@ cat is hashed (/bin/cat)
 
 ## 独立搜索Q&A
 **1. chrontable是什么**
+
 **2. shell清空指令**
 
 https://blog.csdn.net/weixin_34338504/article/details/113011529?ops_request_misc=&request_id=&biz_id=102&utm_term=shell%E6%B8%85%E7%A9%BA%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-113011529.142^v40^control,185^v2^control&spm=1018.2226.3001.4187
