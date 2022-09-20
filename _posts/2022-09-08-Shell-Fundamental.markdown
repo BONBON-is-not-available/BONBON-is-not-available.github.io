@@ -483,11 +483,11 @@ eg. cut -d":" -f2 /etc/resolv.conf
 
 [awk命令详解1][7]
 
-[7]https://blog.csdn.net/zhangcongyi420/article/details/125692179?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166328897216782388044630%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166328897216782388044630&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-125692179-null-null.142^v47^control,201^v3^control_1&utm_term=linux%20awk&spm=1018.2226.3001.4187
+[7]:https://blog.csdn.net/zhangcongyi420/article/details/125692179?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166328897216782388044630%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166328897216782388044630&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-125692179-null-null.142^v47^control,201^v3^control_1&utm_term=linux%20awk&spm=1018.2226.3001.4187
 
 [awk命令详解2][8]
 
-[8]https://blog.csdn.net/anqixiang/article/details/117903529?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166011929016781667822292%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166011929016781667822292&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-117903529-null-null.142^v40^control,185^v2^control&utm_term=awk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3&spm=1018.2226.3001.4187
+[8]:https://blog.csdn.net/anqixiang/article/details/117903529?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166011929016781667822292%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166011929016781667822292&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-1-117903529-null-null.142^v40^control,185^v2^control&utm_term=awk%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3&spm=1018.2226.3001.4187
 
 **awk语法**
 
