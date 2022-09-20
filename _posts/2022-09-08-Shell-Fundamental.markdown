@@ -20,15 +20,20 @@ category:  project1
 [WashingtonU: Using vi, the Unix Visual Editor][1]
 <embed src="https://staff.washington.edu/rells/R110/#basics4" height="500px" width="100%">
 
+[CSDN: linux基础][3]
+<embed src="https://blog.csdn.net/qq_42250189/article/details/105743561?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165889346016780366518949%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=165889346016780366518949&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-12-105743561-null-null.142^v35^control,185^v2^control&utm_term=shell%20-s%20%24var&spm=1018.2226.3001.4187" height="500px" width="100%">
+
 [Runoob: linux教程][2]
 <embed src="https://www.runoob.com/linux/linux-file-content-manage.html" height="500px" width="100%">
 
-[Github: linux Intro][5]
+[Github: linux Intro][4]
+
+
 
 [1]:https://staff.washington.edu/rells/R110/#basics4
 [2]:https://www.runoob.com/linux/linux-file-content-manage.html
-[5]:https://github.com/BoobooWei/booboo_linux_base
-
+[3]:https://blog.csdn.net/qq_42250189/article/details/105743561?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522165889346016780366518949%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=165889346016780366518949&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_ecpm_v1~rank_v31_ecpm-12-105743561-null-null.142^v35^control,185^v2^control&utm_term=shell%20-s%20%24var&spm=1018.2226.3001.4187
+[4]:https://github.com/BoobooWei/booboo_linux_base
 
 # Linux基础命令
 ## 命令提示符
@@ -922,6 +927,62 @@ Sun Mon Tue Wed Thu Fri Sat
 178 179 180 181 182
 ```
 
+### 拓展: 数字类型字符串转数字的方法
+
+情景: 日期"20210107’字符串需要先截取年月日，然后获取数字，如"07" —>7
+
+#### $[]
+
+```shell
+# RUN_BATCH_DATE_TYPE: M: monthly(Run once a month)   W:weekly (Obtain results: 0 for Sunday, 1-6 for Monday to Saturday)  D:day (Every day) default day type
+# RUN_BATCH_DATE: Specific batch running date .This field must be used with RUN_BATCH_DATE_TYPE default : RUN_BATCH_DATE=1
+RUN_BATCH_DATE_TYPE="D"
+RUN_BATCH_DATE=1
+# Gets the day of the week for current system time
+# WEEK_DAY=`date -d "" +%w`
+# MONTH_DAY=`date -d "" +%d`
+
+WEEK_DAY=`date -d "$end_date" +%w`
+MONTH_DAY=`date -d "$end_date" +%d`
+
+if [ $RUN_BATCH_DATE_TYPE == "D" ]; then
+    echo "The run batch type is ${RUN_BATCH_DATE_TYPE} : Day"
+elif [ $RUN_BATCH_DATE_TYPE == "W" ] && [ $[RUN_BATCH_DATE] == $[WEEK_DAY] ] ; then 
+    echo "The run batch type is ${RUN_BATCH_DATE_TYPE} : weekly ,The running time is weekly : ${RUN_BATCH_DATE}"
+elif [ $RUN_BATCH_DATE_TYPE == "M" ] && [ $[RUN_BATCH_DATE] == $[MONTH_DAY] ] ; then 
+    echo "The run batch type is ${RUN_BATCH_DATE_TYPE} : monthly ,The running time is monthly  : ${RUN_BATCH_DATE}" 
+else 
+    # exit 0
+    echo "No   ${RUN_BATCH_DATE_TYPE}  ${RUN_BATCH_DATE} " 
+
+fi 
+```
+#### $(())
+```shell
+if [ $Run_Batch_Date_Type == "D" ]; then
+    echo "The run batch type is ${Run_Batch_Date} : Day"
+elif [ $Run_Batch_Date_Type == "W" ] && [ $((Run_Batch_Date)) == $((WEEK_DAY)) ] ; then 
+    echo "The run batch type is ${Run_Batch_Date} : weekly ,The running time is weekly : ${Run_Batch_Date}"
+elif [ $Run_Batch_Date_Type == "M" ] && [ $((Run_Batch_Date)) == $((MONTH_DAY)) ] ; then 
+    echo "The run batch type is ${RUN_BATCH_DATE_TYPE} : monthly ,The running time is monthly  : ${Run_Batch_Date}" 
+else 
+    
+    echo "Not at script run time.  Run_Batch_Date_Type= ${Run_Batch_Date_Type}  Run_Batch_Date=${Run_Batch_Date},but WEEK_DAY= $WEEK_DAY ,MONTH_DAY= $MONTH_DAY"
+    exit 0
+fi 
+```
+#### expr
+`a=`expr 1 + 2``
+
+等同于
+`a=$((1+2));`
+`echo $a;`
+
+#### let
+`let num=0123;`
+`echo $num; `
+`83`
+
 ## Linux压缩打包
 
 ### 压缩的原理
@@ -1622,6 +1683,12 @@ cat is hashed (/bin/cat)
 **2. shell清空指令**
 https://blog.csdn.net/weixin_34338504/article/details/113011529?ops_request_misc=&request_id=&biz_id=102&utm_term=shell%E6%B8%85%E7%A9%BA%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-113011529.142^v40^control,185^v2^control&spm=1018.2226.3001.4187
 **3. 不可用于文件名的符号 "/"
+
+# vi 命令
+
+[vi指令表][1]
+
+[1]:https://blog.csdn.net/xueziheng/article/details/2048054?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-2048054-blog-124157260.pc_relevant_aa&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-1-2048054-blog-124157260.pc_relevant_aa&utm_relevant_index=1
 
 # Markdown格式
 
