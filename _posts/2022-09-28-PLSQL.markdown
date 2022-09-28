@@ -1,0 +1,32 @@
+---
+layout:     post
+title:      ORACLE PLSQL memo
+author:     bonbon
+tags: 		ORACLE
+subtitle:  	things I didn't know writing ORACLE PLSQL
+category:  project1
+---
+
+# Table of Contents
+
+* TOC
+{:toc}
+
+# Basic Functionality
+
+Ipad 函数
+
+lpad函数从左边对字符串使用指定的字符进行填充
+
+语法:
+
+`lpad( string, padded_length, [ pad_string ] )`
+
+| argument | description |
+|---------|:----------|
+|string |准备被填充的字符串|
+|padded_length |填充之后的字符串长度，也就是该函数返回的字符串长度，如果这个数量比原字符串的长度要短，lpad函数将会把字符串截取成从左到右的n个字符|
+|pad_string |填充字符串，是个可选参数，这个字符串是要粘贴到string的左边，如果这个参数未写，lpad函数将会在string的左边粘贴空格|
+
+
+
